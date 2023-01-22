@@ -4,9 +4,13 @@
     <title>QR Code Generator</title>
 </head>
 <body>
-    <form method="POST" action="{{ url_for('generate') }}">
+    <form method="POST" action="{{ url_for('generate_qrcode') }}">
         <input type="text" name="url" placeholder="Enter URL">
         <input type="submit" value="Generate QR code">
+    </form>
+    <form action="{{ url_for('generate_url') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="qr_file">
+        <input type="submit" value="Submit">
     </form>
 </body>
 </html>
