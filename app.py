@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file, jsonify
+from flask import Flask, Response, request, render_template, send_file, jsonify
 from pyzbar.pyzbar import decode
 from PIL import Image
 import qrcode
@@ -29,9 +29,12 @@ def generate_qrcode():
     url = request.form['text_qr_content']
     img = qrcode.make(url)
     bio = BytesIO()
-    img.save(bio, format='png')
     bio.seek(0)
-    return send_file(bio, mimetype='image/png')
+    response = Response(content_type="image/jpeg")
+    img.save(bio, format='jpeg')
+    response.headers["Content-Disposition"] = "attachment; filename=image.jpg"
+    #return send_file(bio, mimetype='image/png')
+    return response
 
 
 if __name__ == '__main__':
