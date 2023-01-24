@@ -6,14 +6,23 @@
 <body>
     <form action="{{ url_for('generate_url') }}" method="post" enctype="multipart/form-data">
         <input type="file" name="qr_file" value="Select a QR code file">
-        <input type="submit" value="Submit">
+        </br>
+        <input type="submit" value="Generate URL">
     </form>
-    <form method="POST" action="{{ url_for('generate_qrcode') }}">
-        <textarea id="qr_content" name="text_qr_content" rows="4" cols="50">
-            {{ qr_content  }}
-        </textarea>
-        </tr>
+
+    <form method="POST">
+        <input type="text" id="qr_content" name="qr_content" value="{{ url }}">
+        </br>
         <input type="submit" value="Generate QR code">
+    </form>
+
+    </br>
+    {% if url %}
+        <img src="{{ url_for('qr_code') }}?{{url}}" alt="QR Code">
+    {% endif %}
+
+    <form action="{{ url_for('download_qrcode') }}" method="post" enctype="multipart/form-data">
+        <input type="submit" value="Download QR code">
     </form>
 </body>
 </html>
