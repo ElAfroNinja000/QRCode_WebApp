@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>QR Code Generator</title>
-</head>
-<body>
-    <form action="{{ url_for('generate_url') }}" method="post" enctype="multipart/form-data">
-        <input type="file" name="qr_file" value="Select a QR code file">
-        </br>
-        <input type="submit" value="Generate URL">
-    </form>
+    <head>
+        <title>QR Code Generator</title>
+        <link rel="stylesheet" type="text/css" href="static/css/style5.css">
+    </head>
 
-    <form method="POST">
-        <input type="text" id="qr_content" name="qr_content" value="{{ url }}">
-        </br>
-        <input type="submit" value="Generate QR code">
-    </form>
+    <body>
+        <div id="feedback-form">
+            <h2 class="header">QR Code Generator</h2>
+            <form action="{{ url_for('generate_url') }}" method="post" enctype="multipart/form-data">
+                <input type="file" name="qr_file" value="Select a QR code file">
+                </br>
+                <button type="submit">Generate URL</button>
+            </form>
 
-    </br>
-    {% if url %}
-        <img src="{{ url_for('qr_code') }}?{{url}}" alt="QR Code">
-    {% endif %}
+            <form method="POST">
+                </br>
+                <input type="text" id="qr_content" name="qr_content" value="{{ url }}">
+                <button type="submit">Generate QR code</button>
+            </form>
 
-    <form action="{{ url_for('download_qrcode') }}" method="post" enctype="multipart/form-data">
-        <input type="submit" value="Download QR code">
-    </form>
-</body>
+            </br>
+            {% if url %}
+                <img src="{{ url_for('qr_code') }}?{{url}}" alt="QR Code">
+            {% endif %}
+
+            <form action="{{ url_for('download_qrcode') }}" method="post" enctype="multipart/form-data">
+                <button type="submit">Download QR code</button>
+            </form>
+        </div>
+    </body>
 </html>

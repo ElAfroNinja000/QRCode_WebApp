@@ -22,15 +22,19 @@ def generate_url():
 def index():
     url = ""
     if request.method == 'POST':
+        max_width  = 250
+        max_height = 250
         url = request.form['qr_content']
         img = qrcode.make(url)
+        img.resize((max_width, max_height), Image.ANTIALIAS)
         img.save('static/generated_qr.png')
     return render_template('index.html', url=url)
 
 
 @app.route("/qr_code")
+
 def qr_code():
-    return send_file('static/generated_qr.png', mimetype='image/png')
+    return send_file('static/generated_qr.png', mimetype='image/png', cache_timeout=3600)
 
 
 @app.route('/download_qrcode', methods=['POST'])
