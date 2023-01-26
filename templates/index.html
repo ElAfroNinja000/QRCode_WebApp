@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>QR Code Generator</title>
-        <link rel="stylesheet" type="text/css" href="static/css/styles_v1.css">
+        <link rel="stylesheet" type="text/css" href="static/css/styles_v2.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             function submitForm() {
@@ -21,7 +21,7 @@
                 </label>
             </form>
 
-            <form method="POST">
+            <form action="{{ url_for('generate_qrcode') }}" method="POST">
                 </br>
                 <input type="text" id="qr_content" name="qr_content" value="{{ url }}">
                 <button type="submit">Generate QR code</button>
@@ -32,7 +32,7 @@
                 <img src="{{ url_for('qr_code') }}?{{url}}" alt="QR Code">
             {% endif %}
 
-            <form action="{{ url_for('download_qrcode') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url_for('download_qrcode') }}" method="get" enctype="multipart/form-data">
                 <button type="submit">Download QR code</button>
             </form>
         </div>
