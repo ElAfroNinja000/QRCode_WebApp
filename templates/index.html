@@ -2,16 +2,23 @@
 <html>
     <head>
         <title>QR Code Generator</title>
-        <link rel="stylesheet" type="text/css" href="static/css/style5.css">
+        <link rel="stylesheet" type="text/css" href="static/css/styles_v1.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            function submitForm() {
+                document.getElementById("file-form").submit();
+            }
+        </script>
     </head>
 
     <body>
-        <div id="feedback-form">
+        <div id="app-form">
             <h2 class="header">QR Code Generator</h2>
-            <form action="{{ url_for('generate_url') }}" method="post" enctype="multipart/form-data">
-                <input type="file" name="qr_file" value="Select a QR code file">
-                </br>
-                <button type="submit">Generate URL</button>
+            <form id="file-form" action="{{ url_for('generate_url') }}" method="post" enctype="multipart/form-data">
+                <label class="file-upload" class="file-upload">
+                    <input type="file" name="qr_file" onchange="submitForm()">
+                    Select a QR Code
+                </label>
             </form>
 
             <form method="POST">

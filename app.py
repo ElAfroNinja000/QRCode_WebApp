@@ -2,6 +2,11 @@ from flask import Flask, Response, request, render_template, send_file, jsonify
 from pyzbar.pyzbar import decode
 from PIL import Image
 import qrcode
+import time
+import glob
+
+QR_MAX_WIDTH  = 250
+QR_MAX_HEIGHT = 250
 
 app = Flask(__name__)
 
@@ -11,10 +16,8 @@ def generate_url():
     file = request.files['qr_file']
     image = Image.open(file)
     barcodes = decode(image)
-    for barcode in barcodes:
-        barcode_data = barcode.data
-        print(type(barcode_data.decode()))
-        return render_template('index.html', url=barcode_data.decode())
+    barcode_data = barcodes[0].data
+    return render_template('index.html', url=barcode_data.decode())
     return render_template('index.html', url={"error": "No QR code found in the image"})
 
 
@@ -22,19 +25,20 @@ def generate_url():
 def index():
     url = ""
     if request.method == 'POST':
-        max_width  = 250
-        max_height = 250
         url = request.form['qr_content']
         img = qrcode.make(url)
-        img.resize((max_width, max_height), Image.ANTIALIAS)
-        img.save('static/generated_qr.png')
+        img.resize((QR_MAX_WIDTH, QR_MAX_HEIGHT), Image.ANTIALIAS)
+        timestamp = int(time.time())
+        img.save(f'static/generated_qr_{timestamp}.png')
     return render_template('index.html', url=url)
 
 
 @app.route("/qr_code")
-
 def qr_code():
-    return send_file('static/generated_qr.png', mimetype='image/png', cache_timeout=3600)
+    print("HELLO")
+    image_path = glob.glob('static/generated_qr_*.png')[0]
+    print(image_path)
+    return send_file(image_path, mimetype='image/png', cache_timeout=3600)
 
 
 @app.route('/download_qrcode', methods=['POST'])
