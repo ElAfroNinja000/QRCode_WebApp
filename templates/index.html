@@ -29,12 +29,11 @@
 
             </br>
             {% if url %}
-                <img src="{{ url_for('qr_code') }}?{{url}}" alt="QR Code">
+                <img src="{{ url_for('update_qr_image') }}?{{url}}" alt="QR Code">
+                <form action="{{ url_for('download_qrcode') }}?{{url}}" method="post" enctype="multipart/form-data">
+                    <button type="submit">Download QR Code</button>
+                </form>
             {% endif %}
-
-            <form action="{{ url_for('download_qrcode') }}" method="get" enctype="multipart/form-data">
-                <button type="submit">Download QR code</button>
-            </form>
         </div>
     </body>
 </html>
