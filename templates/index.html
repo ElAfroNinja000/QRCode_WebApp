@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>QR Code Generator</title>
+        <title>QR Code Generator </title>
         <link rel="stylesheet" type="text/css" href="static/css/styles_v2.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
@@ -13,7 +13,7 @@
 
     <body>
         <div id="app-form">
-            <h2 class="header">QR Code Generator</h2>
+            <h2 class="header">QR Code Generator &#x1F911</h2>
             <form id="file-form" action="{{ url_for('generate_url') }}" method="post" enctype="multipart/form-data">
                 <label class="file-upload" class="file-upload">
                     <input type="file" name="qr_file" onchange="submitForm()">
