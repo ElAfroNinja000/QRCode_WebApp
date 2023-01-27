@@ -7,6 +7,7 @@ QR_MAX_WIDTH  = 300
 QR_MAX_HEIGHT = 300
 IMAGES_DIR         = "static/images/"
 MAX_IMAGES_TO_KEEP = 5
+TEMPORIZATION      = 1
 
 
 # Saving the image to the static folder.
@@ -14,7 +15,7 @@ def save_static_image(img):
     img.resize((QR_MAX_WIDTH, QR_MAX_HEIGHT), Image.ANTIALIAS)
     timestamp = int(time.time())
     img.save(f'{IMAGES_DIR}generated_qr_{timestamp}.png')
-    time.sleep(1)
+    time.sleep(TEMPORIZATION)
     keep_latest_images()
 
 
